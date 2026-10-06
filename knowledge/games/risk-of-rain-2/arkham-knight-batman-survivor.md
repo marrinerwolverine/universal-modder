@@ -9,7 +9,7 @@ engine: unity-mono
 route: loader-api
 tools: ["BepInExPack 5.4.2122 (Doorstop 4)", "RoR2BepInExPack 1.43.0", "R2API Core 5.3.0 + split modules (Prefab 1.1.1, Language 1.1.0, Sound 1.0.3, RecalculateStats 1.6.6, ContentManagement 1.0.11, Networking 1.0.4, DamageType 1.1.7, Orb 1.0.1)", "HenryTutorial @ 42797355 (AC update)", ".NET SDK 5.0.104 (dotnet build, netstandard2.1, C# 7.3)", "RiskOfRain2.GameLibs 1.4.1-r.0", "ilspycmd 11.1.0.9782", "UE Viewer (umodel) build 1590, 64-bit, 2023-07-07", "Blender 5.2.2 LTS portable + io_scene_psk_psa 9.1.3", "Unity 2021.3.33f1 (Personal, batchmode)", "Thunderstore Mod Manager 1.25 (Overwolf)"]
 anti_cheat: "none (RoR2 co-op PvE has no anti-cheat; Arkham Knight was only read offline, never launched or modified)"
-status: in-progress
+status: working
 agents: ["Claude Code (Opus 5.5)"]
 humans: []
 date: 2026-10-05
@@ -23,8 +23,9 @@ tags: [survivor, port, ue3, umodel, psk, psa, blender, unity-assetbundle, animat
 > combo meter, 4-hit lunge chain, Counter, Cape Stun, Fear Multi-Takedown, gadgets, glide). The real Batman model and 51
 > animations are extracted from the player's own Arkham Knight install with umodel, rebuilt headlessly in Blender and
 > packed into an AssetBundle by a headless Unity 2021.3.33f1 builder. Verified in game: the mod loads the real-model
-> bundle with no mod errors and every skill fires (first on a placeholder model); the real-model animations were played
-> by the human but not yet screenshot-checked by the agent. Multiplayer is untested. Ripped assets stay local and are never shipped.
+> bundle with no mod errors, and the human played the final reviewed build (real model, all 51 animations, merged
+> Grapnel Batclaw, 47 review fixes) and reported that it works. Multiplayer is untested. Ripped assets stay local and are
+> never shipped.
 
 ## Setup
 - RoR2 1.4.1#912 (the Feb-2026 "Steamdeck Controls Update", RoR2.dll sha1 `5c183b2d…`), Unity 2021.3.33f1, Mono.
@@ -123,10 +124,12 @@ The steps, in order. Scripts live in the mod's repo; their names are given here 
 - **In game (the human launched; the agent read `BepInEx\LogOutput.log`):**
   - on the placeholder model, all skills visibly worked: stun rings, explosions, Counter flash, Fear Takedown chain,
     combo HUD to x19;
-  - on the real model the log shows `'arkhambatmanbundle' is the Arkham Batman bundle (mdlBatman)`, two runs, and no mod errors.
+  - on the real model the log shows `'arkhambatmanbundle' is the Arkham Batman bundle (mdlBatman)`, two runs, and no mod errors;
+  - 2026-10-05: the human played the final reviewed build (real model and animations, merged Grapnel Batclaw, the 47
+    review fixes) and reported "It works great!". This is a human report; the agent did not review screenshots or video of it.
 - **NOT verified:**
-  - real-model animation quality in game (no screenshots reviewed yet);
-  - the merged Grapnel Batclaw and the 47 fixes from the code review below;
+  - by the agent itself: real-model animation quality in game (no screenshots or video reviewed; only the human's report above);
+  - each item of the in-game checklist one by one (e.g. Bandolier under a Special Combo, AI umbras, Backup Magazine stock edge cases);
   - Counter against ranged, boss and multiple attackers;
   - anything multiplayer.
 
@@ -213,7 +216,7 @@ Most were multiplayer roles and interactions with vanilla items/AI, not crashes.
 resumable, and count an unverified finding as unverified, not refuted.
 
 ## Open questions
-- How the real-model animations play in game: scale, sliding, readability of the strikes. Screenshots and video are still to come.
+- Detailed in-game review of the real-model animations (sliding, strike readability) from video; the human reports they play well.
 - Cape physics: authored cape clips plus held poses only. RoR2's own `DynamicBone` (an old version, present in RoR2.dll)
   could add motion.
 - Arkham audio: decode the WWAD/Vorbis SFX with vgmstream and author v150 Wwise banks.

@@ -1239,7 +1239,7 @@
    "Thunderstore Mod Manager 1.25 (Overwolf)"
   ],
   "anti_cheat": "none (RoR2 co-op PvE has no anti-cheat; Arkham Knight was only read offline, never launched or modified)",
-  "status": "in-progress",
+  "status": "working",
   "agents": [
    "Claude Code (Opus 5.5)"
   ],
